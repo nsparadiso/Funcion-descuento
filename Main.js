@@ -54,11 +54,12 @@ const carrito = JSON.parse(localStorage.getItem("carrito")) ?? [];
 const total = carrito.reduce((acumulador, producto) => acumulador + producto.price, 0);
 document.getElementById("cart-total").innerHTML = `${carrito.length}  - $${total}`;
 
+
 productos.forEach((producto) => {
     const idButton = `add-cart${producto.id}` 
     document.getElementById("seccion-card").innerHTML += `
         <div class="card">
-        <div class="m-0 row justify-content-center"> 
+        <div class="m-5 row justify-content-center"> 
         <img src="${producto.img}">
         <div class="precio">
             <p>$${producto.price}</p>
@@ -84,10 +85,14 @@ productos.forEach((producto) => {
     const idButton = `add-cart${producto.id}` 
     document.getElementById(idButton).addEventListener('click', () => {
         carrito.push(producto);
+        Swal.fire({
+            title: 'Agregaste el producto al carrito',
+            confirmButtonText: 'Seguir comprando',})
         localStorage.setItem("carrito", JSON.stringify(carrito));
         const total = carrito.reduce((acumulador, producto) => acumulador + producto.price, 0);
         document.getElementById("cart-total").innerHTML = `${carrito.length} - $${total}`;
         document.getElementById("cart-elements").innerHTML = ""
+
         carrito.forEach((producto) => {
             document.getElementById("cart-elements").innerHTML += `<tr>
                 <th scope="row">${producto.id}</th>
