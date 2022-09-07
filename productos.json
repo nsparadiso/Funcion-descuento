@@ -1,0 +1,309 @@
+                        <button class="btn btn-outline-dark">
+                            <i class="bi-cart-fill me-1"></i>
+                            Cart
+                            <span id="cart-total" class="badge bg-dark text-white ms-1 rounded-pill">0</span>
+                        </button>
+                    </form>
+                        
+                        
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Productos</a>
+                                                <ul id="dropdown-menu" class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <li><a class="dropdown-item" href="#!">All Products</a></li>
+                                <li><hr class="dropdown-divider" /></li>
+                                <li><a class="dropdown-item" href="#!">Popular Items</a></li>
+                                <li><a class="dropdown-item" href="#!">New Arrivals</a></li>
+                            </ul>
+
+
+
+<section>
+            <table class="table table-sm">
+                <thead>
+                  <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Producto</th>
+                    <th scope="col">Icono</th>
+                    <th scope="col">Precio</th>
+                  </tr>
+                </thead>
+                <tbody id="cart-elements">
+                </tbody>
+              </table>
+        </section>
+        const nodo = event.target
+        const idProducto = nodo.getAttribute("data-id")
+        const indiceProducto = producto.indexof(producto => producto.id === idProducto)
+        const producto = producto[indiceProducto]
+   
+    {
+        id:1,
+        title:"Televisor",
+        img: "//http2.mlstatic.com/D_NQ_NP_710945-MLA48007822991_102021-V.jpg",
+        price: 50000,
+        type: "Electro"
+    },{
+        id:2,
+        title:"Lavarropas",
+        img: "https://electroluxar.vtexassets.com/arquivos/ids/156325/elaf8.jpg?v=636754715606270000",
+        price: 30000,
+        type: "Electro"
+    },{
+        id:3,
+        title:"Calefactor",
+        img: "https://d2ye0ltusw47tz.cloudfront.net/1111788-thickbox_default/calefactor-electrico-tivoli-tpc-2007bn.jpg",
+        price: 6500,
+        type: "Hogar"
+    },{
+        id:4,
+        title:"Plancha",
+        img: "https://atma.com.ar/media/catalog/product/cache/aa999612044d357928d16abd893bc3dd/p/a/pas1217n-1_ejrkedog061lv4oq.jpg",
+        price: 12000,
+        type: "Electro"
+    },{
+        id:5,
+        title:"Secarropas",
+        img: "https://hendel-r7d8odghj1.stackpathdns.com/media/catalog/product/cache/0c3e9ac8430b5a3e77d1544ae1698a10/1/0/105291.jpg",
+        price: 37000,
+        type: "Electro"
+    },{
+        id:6,
+        title:"Horno Electrico",
+        img: "https://www.megatone.net/Images/Articulos/zoom2x/243/HOR0045CNQ.jpg",
+        price: 23000,
+        type: "Hogar"
+    },{
+        id:7,
+        title:"PlayStation 4",
+        img: "https://as01.epimg.net/meristation/imagenes/2020/02/10/noticias/1581347400_144086_1581347453_noticia_normal.jpg",
+        price: 160000,
+        type: "Entretenimiento"
+    },{
+        id:8,
+        title:"Reproductor audio Muteki",
+        img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTdz_0-IKtVwqsEwB5zLhiDkc9ouNbMb9fCY1-cNqw9oKHDKQZNEmKQQqI95zFzQ_4f09o&usqp=CAU",
+        price: 280000,
+        type: "Entretenimiento"
+    }
+];
+
+function agregarAlCarrito() {
+        const idButton = `add-cart${producto.id}`
+        document.getElementById(idButton).innerHTML 
+        carrito.push(producto);
+        Swal.fire({
+        title: 'Agregaste el producto al carrito',
+        confirmButtonText: 'Seguir comprando',})
+        localStorage.setItem("carrito", JSON.stringify(carrito));
+        const total = carrito.reduce((acumulador, producto) => acumulador + producto.price, 0);
+        document.getElementById("cart-total").innerHTML = `${carrito.length} - $${total}`;
+        document.getElementById("cart-elements").innerHTML = ""
+        
+}
+
+
+producto.forEach((producto) => {
+    const idButton = `add-cart${producto.id}`
+    document.getElementById(idButton).innerHTML.addEventListener('click', () => {
+
+        Swal.fire({
+        title: 'Agregaste el producto al carrito',
+        confirmButtonText: 'Seguir comprando',})
+        carrito.push(producto);
+        localStorage.setItem("carrito", JSON.stringify(carrito));
+        const total = carrito.reduce((acumulador, producto) => acumulador + producto.price, 0);
+        document.getElementById("cart-total").innerHTML = `${carrito.length} - $${total}`;
+        document.getElementById("cart-elements").innerHTML = ""
+})});
+
+
+/*
+carrito.forEach((producto) => {
+        document.getElementById("cart-elements").innerHTML += `<tr>
+                <th scope="row">${producto.id}</th>
+                <td>${producto.title}</td>
+                <td><img src="${producto.img}" style="width:25px"></td>
+                <td>${producto.price}</td>
+                <td><button onclick ="removeArrayItem(carrito)" id="eliminarButton${producto.id}">Eliminar</button></td>
+            </tr>`
+        })
+
+        */
+/*
+function generarCardsCarrito() {
+    carrito.forEach((producto) => {
+        document.getElementById("seccion-card").innerHTML += `<div>
+            <p>${producto.id}
+            - ${producto.title}
+            - img src="${producto.img}"
+            - ${producto.price}
+            </div>`
+    })
+}
+*/
+
+/*
+
+function removeArrayItem (carrito) {
+    const removeId = carrito.indexOf(producto.id)
+    carrito.splice (removeId)
+    localStorage.setItem("carrito",JSON.stringify(carrito))
+    const total = carrito.reduce((acumulador, producto) => acumulador + producto.price, 0);
+    document.getElementById("cart-total").innerHTML = `${carrito.length} - $${total}`;
+    document.getElementById("cart-elements").innerHTML = ""
+    carrito.forEach((producto) => {
+        document.getElementById("cart-elements").innerHTML += `<tr>
+            <th scope="row">${producto.id}</th>
+            <td>${producto.title}</td>
+            <td><img src="${producto.img}" style="width:25px"></td>
+            <td>${producto.price}</td>
+            <td><button onclick ="removeArrayItem(carrito)" id="eliminarButton${producto.id}">Eliminar</button></td>
+        </tr>`
+    })}
+
+*/
+
+
+        const nodo = event.target   
+        const idProducto = nodo.getAttribute("data-id")
+        const indiceProducto = producto.indexof(producto => producto.id === idProducto)
+        const producto = producto[indiceProducto]
+        localStorage.setItem("carrito", JSON.stringify(carrito));
+        const total = carrito.reduce((acumulador, producto) => acumulador + producto.price, 0);
+        document.getElementById("cart-total").innerHTML = `${carrito.length} - $${total}`;
+        document.getElementById("cart-elements").innerHTML = ""
+
+
+        
+
+/*{.addEventListener('click', (event) =>{
+    const nodo = event.target
+    const idProducto = nodo.getAttribute("id")
+    const indiceProducto = producto.indexof(producto => producto.id === idProducto)
+    const producto = producto[indiceProducto]
+    carrito.push(producto)
+    localStorage.setItem("carrito", JSON.stringify(carrito));
+    const total = carrito.reduce((acumulador, producto) => acumulador + producto.price, 0);
+    document.getElementById("cart-total").innerHTML = `${carrito.length} - $${total}`;
+    document.getElementById("cart-elements").innerHTML = ""
+})
+
+//for (var i = 0; i < arrayProductos.length; i) => {
+//const addToCartButton = document.getElementById(idButton).addEventListener("click", () => {
+//console.log (idButton)})
+//}
+
+/*
+productos.forEach((producto) => {
+    const idButton = `add-cart${producto.id}` 
+    document.getElementById(idButton).addEventListener('click', () => {
+        carrito.push(producto);
+        Swal.fire({
+            title: 'Agregaste el producto al carrito',
+            confirmButtonText: 'Seguir comprando',})
+        localStorage.setItem("carrito", JSON.stringify(carrito));
+        const total = carrito.reduce((acumulador, producto) => acumulador + producto.price, 0);
+        document.getElementById("cart-total").innerHTML = `${carrito.length} - $${total}`;
+        document.getElementById("cart-elements").innerHTML = ""
+
+        carrito.forEach((producto) => {
+            document.getElementById("cart-elements").innerHTML += `<tr>
+                <th scope="row">${producto.id}</th>
+                <td>${producto.title}</td>
+                <td><img src="${producto.img}" style="width:25px"></td>
+                <td>${producto.price}</td>
+                <td><button onclick ="removeArrayItem(carrito)" id="eliminarButton${producto.id}">Eliminar</button></td>
+            </tr>`
+        })
+    })
+});
+;
+
+
+
+console.log(carrito)
+
+/*
+carrito.forEach((producto) => {
+    document.getElementById("cart-elements").innerHTML += `<tr>
+        <th scope="row">${producto.id}</th>
+        <td>${producto.title}</td>
+        <td><img src="${producto.img}" style="width:25px"></td>
+        <td>${producto.price}</td>
+        <td><button onclick ="removeArrayItem(carrito)" id="eliminarButton${producto.id}">Eliminar</button></td>
+    </tr>`
+})
+*/
+
+
+/*
+productos.forEach((producto) => {
+    const idButton = `add-cart${producto.id}` 
+    document.getElementById(idButton).addEventListener('click', (event) => {
+        carrito.push(producto);
+        localStorage.setItem("carrito", JSON.stringify(carrito));
+        const total = carrito.reduce((acumulador, producto) => acumulador + producto.price, 0);
+        document.getElementById("cart-total").innerHTML = `${carrito.length} - $${total}`;
+        document.getElementById("cart-elements").innerHTML = ""
+        })
+
+
+        carrito.forEach((producto) => {
+            document.getElementById("cart-elements").innerHTML += `<tr>
+                <th scope="row">${producto.id}</th>
+                <td>${producto.title}</td>
+                <td><img src="${producto.img}" style="width:25px"></td>
+                <td>${producto.price}</td>
+                <td><button onclick ="removeArrayItem(carrito)" id="eliminarButton${producto.id}">Eliminar</button></td>
+            </tr>`
+        })
+    });
+
+    
+/*
+productos.forEach((producto) => {
+    const idButton = `add-cart${producto.id}` 
+    document.getElementById(idButton).innerHTML.addEventListener('click', () => {
+    Swal.fire({
+            title: 'Agregaste el producto al carrito',
+            confirmButtonText: 'Seguir comprando',})
+        carrito.push(producto);
+        localStorage.setItem("carrito", JSON.stringify(carrito));
+        const total = carrito.reduce((acumulador, producto) => acumulador + producto.price, 0);
+        document.getElementById("cart-total").innerHTML = `${carrito.length} - $${total}`;
+        document.getElementById("cart-elements").innerHTML = ""
+
+        carrito.forEach((producto) => {
+            document.getElementById("cart-elements").innerHTML += `<tr>
+                <th scope="row">${producto.id}</th>
+                <td>${producto.title}</td>
+                <td><img src="${producto.img}" style="width:25px"></td>
+                <td>${producto.price}</td>
+                <td><button onclick ="removeArrayItem(carrito)" id="eliminarButton${producto.id}">Eliminar</button></td>
+            </tr>`
+        })
+    })
+});
+*/
+
+/*
+const buscadorDeProductoMeli = () => {
+    fetch("https://api.mercadolibre.com/sites/MLA/search?q=zapatillasurbanas")
+    .then((response) => response.json())
+    .then(informacion => {
+        let acumulador = ``;
+        informacion.results.forEach((producto) => {
+           const idButton = `add-cart${producto.id} `
+            arrayProductos.push(producto);
+            acumulador += `<div class="card">
+            <div class="m-2 row""m-2 col"> 
+            <h5 "justify" align="center">${producto.title}</h5>
+            <img src="${producto.thumbnail}">
+            <h2 "justify" align="center">$${producto.price}</h2>
+            <button onclick="popup()" class="addCartButton" id="${idButton}" align="center"> Agregame! </button>
+            </div></div>`
+   })
+   document.getElementById("seccion-card").innerHTML += acumulador })
+}   
+buscadorDeProductoMeli()
+*/
